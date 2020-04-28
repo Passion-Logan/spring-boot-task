@@ -3,10 +3,12 @@ package com.cody.dynamicquery;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * ClassName: DynamicQueryImpl
@@ -16,6 +18,7 @@ import javax.persistence.Query;
  * @date: 2020/4/27 23:42
  * @since JDK 1.8
  */
+@Service
 public class DynamicQueryImpl implements DynamicQuery {
 
     @PersistenceContext
@@ -69,17 +72,17 @@ public class DynamicQueryImpl implements DynamicQuery {
     }
 
     @Override
-    public Long nativeQieryCount(String nativeSql, Object... params) {
+    public Long nativeQueryCount(String nativeSql, Object... params) {
         Object count = createNativeQuery(nativeSql, params).getSingleResult();
         return ((Number) count).longValue();
     }
 
     @Override
-    public <T> Long naviveQueryPagingList(Class<T> resultClass, Pageable pageable, String naviteSql, Object... params) {
+    public <T> List<T> nativeQueryPagingList(Class<T> resultClass, Pageable pageable, String naviteSql, Object... params) {
         Integer pageNumber = pageable.getPageNumber();
         Integer pageSize = pageable.getPageSize();
         Integer startPosition = pageNumber * pageSize;
-        return Long.valueOf(createNativeQuery(resultClass, naviteSql, params).setFirstResult(startPosition).setMaxResults(pageSize)
-                .getFirstResult());
+        return createNativeQuery(resultClass, naviteSql, params).setFirstResult(startPosition).setMaxResults(pageSize)
+                .getResultList();
     }
 }

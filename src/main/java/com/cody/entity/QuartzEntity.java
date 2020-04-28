@@ -16,7 +16,7 @@ public class QuartzEntity {
     /**
      * 任务名称
      */
-    private String jonName;
+    private String jobName;
 
     /**
      * 任务分组
@@ -36,7 +36,7 @@ public class QuartzEntity {
     /**
      * 执行方法
      */
-    private String jonMethodName;
+    private String jobMethodName;
 
     /**
      * 执行时间
@@ -61,5 +61,5 @@ public class QuartzEntity {
     /**
      * 任务分组 用于修改
      */
-    private String oldJonGroup;
+    private String oldJobGroup;
 }

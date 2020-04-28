@@ -3,6 +3,8 @@ package com.cody.dynamicquery;
 
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * ClassName: DynamicQuery
  *
@@ -28,7 +30,7 @@ public interface DynamicQuery {
      * @param params
      * @return
      */
-    Long nativeQieryCount(String nativeSql, Object... params);
+    Long nativeQueryCount(String nativeSql, Object... params);
 
 
     /**
@@ -41,7 +43,7 @@ public interface DynamicQuery {
      * @param <T>
      * @return
      */
-    <T> Long<T> naviveQueryPagingList(Class<T> resultClass, Pageable pageable, String naviteSql, Object... params);
+    <T> List<T> nativeQueryPagingList(Class<T> resultClass, Pageable pageable, String naviteSql, Object... params);
 
 
 }
